@@ -31,7 +31,6 @@ User.createNew = (new_user, result) => {
     });
 }
 
-
 User.getByUserName = (userName, result) => {
     db.find({ "userName": userName }, function (err, user) {
         if (err) {
@@ -59,7 +58,6 @@ User.deleteByUserName = (userName, result) => {
         }
     });
 }
-
 
 User.updateByUserName = (userName, body, result) => {
     db.update({ "userName": userName }, { $set: body }, function (err, user) {
