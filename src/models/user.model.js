@@ -1,6 +1,6 @@
 const db = require('../../config/db');
 
-const User = function (user) {
+const User = (user) => {
     this.userName = user.userName;
     this.givenName = user.givenName;
     this.surName = user.surName;
@@ -8,7 +8,7 @@ const User = function (user) {
 }
 
 User.getAll = (result) => {
-    db.find({}, function (err, users) {
+    db.find({}, (err, users) => {
         if (err) {
             result(err, null);
         } else if (!users.length) {
@@ -22,7 +22,7 @@ User.getAll = (result) => {
 }
 
 User.createNew = (new_user, result) => {
-    db.insert(new_user, function (err, user) {
+    db.insert(new_user, (err, user) => {
         if (err) {
             result(err, null);
         } else {
@@ -32,7 +32,7 @@ User.createNew = (new_user, result) => {
 }
 
 User.getByUserName = (userName, result) => {
-    db.find({ "userName": userName }, function (err, user) {
+    db.find({ "userName": userName }, (err, user) => {
         if (err) {
             result(err, null);
         } else if (!user.length) {
@@ -46,7 +46,7 @@ User.getByUserName = (userName, result) => {
 }
 
 User.deleteByUserName = (userName, result) => {
-    db.remove({ "userName": userName }, function (err, success) {
+    db.remove({ "userName": userName }, (err, success) => {
         if (err) {
             result(err, null);
         } else if (success == 0) {
@@ -60,7 +60,7 @@ User.deleteByUserName = (userName, result) => {
 }
 
 User.updateByUserName = (userName, body, result) => {
-    db.update({ "userName": userName }, { $set: body }, function (err, user) {
+    db.update({ "userName": userName }, { $set: body }, (err, user) => {
         if (err) {
             result(err, null);
         } else if (!user.length) {
@@ -74,3 +74,9 @@ User.updateByUserName = (userName, body, result) => {
 }
 
 module.exports = User;
+
+// mock the api call
+// remove all and make arraw notation
+// empty to check !== undefined
+// put braces
+// take all to util funct
