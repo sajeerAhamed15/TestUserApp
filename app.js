@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const actuator = require('express-actuator');
 
 var defaultRoute = require('./src/index');
 var users = require('./src/routes/user.routes');
@@ -30,17 +31,21 @@ var options = {
   apis: ['./src/routes/user.routes.js'],
 };
 
-
+// swagger api-docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+
 app.use('/', defaultRoute);
+
 app.use('/user', users);
+
 app.use(function(req, res, next) {
-  // handle 404 errors
-  var err = new Error('Path Does Not Exist! Please Check the URL');
+  var err = new Error('Path Does Not Exist! Please Check the URL.');
   err.status = 404;
   next(err);
 });
 
+// health, metrics check
+app.use(actuator());
 
 // error handlers
 // development error handler
