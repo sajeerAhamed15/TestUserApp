@@ -1,5 +1,5 @@
-var expect  = require('chai').expect;
-var request = require('request');
+const expect  = require('chai').expect;
+const request = require('request');
 
 describe('Default page tests', function() {
     it('Check page contents', function(done) {

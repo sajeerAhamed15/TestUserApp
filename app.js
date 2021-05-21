@@ -1,15 +1,15 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var actuator = require('express-actuator');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const actuator = require('express-actuator');
 
-var defaultRoute = require('./src/index');
-var users = require('./src/routes/user.routes');
+const defaultRoute = require('./src/index');
+const users = require('./src/routes/user.routes');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
-var options = {
+const options = {
   explorer: true,
   apis: ['./src/routes/user.routes.js'],
 };
@@ -43,7 +43,7 @@ app.use('/management', actuator());
 
 // handle 404
 app.use((req, res, next) => {
-  var err = new Error('Path Does Not Exist! Please Check the URL.');
+  const err = new Error('Path Does Not Exist! Please Check the URL.');
   err.status = 404;
   next(err);
 });

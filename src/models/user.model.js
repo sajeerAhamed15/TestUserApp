@@ -9,10 +9,10 @@ const User = (user) => {
 
 User.getAll = (result) => {
     db.find({}, (err, users) => {
-        if (err) {
+        if (err !== undefined) {
             result(err, null);
         } else if (!users.length) {
-            var err = new Error('No Users');
+            const err = new Error('No Users');
             err.status = 204;
             result(err, null);
         } else {
@@ -23,7 +23,7 @@ User.getAll = (result) => {
 
 User.createNew = (new_user, result) => {
     db.insert(new_user, (err, user) => {
-        if (err) {
+        if (err !== undefined) {
             result(err, null);
         } else {
             result(null, user);
@@ -33,10 +33,10 @@ User.createNew = (new_user, result) => {
 
 User.getByUserName = (userName, result) => {
     db.find({ "userName": userName }, (err, user) => {
-        if (err) {
+        if (err !== undefined) {
             result(err, null);
         } else if (!user.length) {
-            var err = new Error('No Such User');
+            const err = new Error('No Such User');
             err.status = 204;
             result(err, null);
         } else {
@@ -47,10 +47,10 @@ User.getByUserName = (userName, result) => {
 
 User.deleteByUserName = (userName, result) => {
     db.remove({ "userName": userName }, (err, success) => {
-        if (err) {
+        if (err !== undefined) {
             result(err, null);
         } else if (success == 0) {
-            var err = new Error('No Such User');
+            const err = new Error('No Such User');
             err.status = 204;
             result(err, null);
         } else {
@@ -61,10 +61,10 @@ User.deleteByUserName = (userName, result) => {
 
 User.updateByUserName = (userName, body, result) => {
     db.update({ "userName": userName }, { $set: body }, (err, user) => {
-        if (err) {
+        if (err !== undefined) {
             result(err, null);
         } else if (!user.length) {
-            var err = new Error('No Such User');
+            const err = new Error('No Such User');
             err.status = 204;
             result(err, null);
         } else {
@@ -75,8 +75,4 @@ User.updateByUserName = (userName, body, result) => {
 
 module.exports = User;
 
-// mock the api call
-// remove all and make arraw notation
-// empty to check !== undefined
-// put braces
 // take all to util funct

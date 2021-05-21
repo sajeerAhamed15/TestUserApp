@@ -1,5 +1,5 @@
-var expect  = require('chai').expect;
-var request = require('request');
+const expect  = require('chai').expect;
+const request = require('request');
 
 describe('User API  tests', function() {
     it('Get all users retruns 200', function(done) {
