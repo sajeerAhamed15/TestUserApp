@@ -25,10 +25,6 @@ User.createNew = (new_user, result) => {
     db.insert(new_user, function (err, user) {
         if (err) {
             result(err, null);
-        // } else if (!user.length) {
-        //     var err = new Error('Could Not Create User');
-        //     err.status = 500;
-        //     result(err, null);
         } else {
             result(null, user);
         }
