@@ -8,8 +8,11 @@ exports.findAllUsers = (req, res) => {
             } else {
                 res.render('error', { message: "Something went wrong", error: err })
             }
-        else
-            res.render('output', { response: JSON.stringify(document) })
+        else {
+            res.send(document)
+            // output template can be used to visualize results
+            // res.render('output', { response: JSON.stringify(document) })
+        }
     })
 }
 
@@ -25,8 +28,9 @@ exports.createUser = (req, res) => {
                 User.createNew(new_user, (err, document) => {
                     if (err) {
                         res.render('error', { message: "Something went wrong", error: err })
-                    } else
-                        res.render('output', { response: JSON.stringify(document) })
+                    } else {
+                        res.send(document)
+                    }
                 })
             }
         })
@@ -41,8 +45,9 @@ exports.findUser = (req, res) => {
             } else {
                 res.render('error', { message: "Something went wrong", error: err })
             }
-        else
-            res.render('output', { response: JSON.stringify(document) })
+        else {
+            res.send(document)
+        }
     })
 }
 
@@ -54,8 +59,9 @@ exports.deleteUser = (req, res) => {
             } else {
                 res.render('error', { message: "Something went wrong", error: err })
             }
-        else
-            res.render('output', { response: JSON.stringify(document) })
+        else {
+            res.send(document)
+        }
     })
 }
 
@@ -75,7 +81,8 @@ exports.updateUser = (req, res) => {
             } else {
                 res.render('error', { message: "Something went wrong", error: err })
             }
-        else
-            res.render('output', { response: JSON.stringify(document) })
+        else {
+            res.send(document)
+        }
     })
 }
