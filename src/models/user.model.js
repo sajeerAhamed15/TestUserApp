@@ -74,5 +74,3 @@ User.updateByUserName = (userName, body, result) => {
 }
 
 module.exports = User;
-
-// take all to util funct
