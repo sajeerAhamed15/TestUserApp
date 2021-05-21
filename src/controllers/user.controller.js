@@ -1,14 +1,5 @@
 const User = require("../models/user.model.js");
 
-const handleNoUserError = (err, res) => {
-    if (err.status === 204) {
-        res.render('error', { message: "No Such User", error: { status: err.status } })
-    } else {
-        res.render('error', { message: "Something went wrong", error: err })
-    }
-}
-
-
 exports.findAllUsers = (req, res) => {
     User.getAll((err, document) => {
         if (err) {
@@ -49,7 +40,11 @@ exports.createUser = (req, res) => {
 exports.findUser = (req, res) => {
     User.getByUserName(req.params.userName, (err, document) => {
         if (err) {
-            handleNoUserError(err, res)
+            if (err.status === 204) {
+                res.render('error', { message: "No Such User", error: { status: err.status } })
+            } else {
+                res.render('error', { message: "Something went wrong", error: err })
+            }
         } else {
             res.send(document)
         }
@@ -57,11 +52,16 @@ exports.findUser = (req, res) => {
 }
 
 exports.deleteUser = (req, res) => {
-    User.deleteByUserName(req.params.userName, (err, document) => {
+    User.deleteByUserName(req.params.userName, (err, success) => {
         if (err) {
-            handleNoUserError(err, res)
+            if (err.status === 204) {
+                res.render('error', { message: "No Such User", error: { status: err.status } })
+            } else {
+                res.render('error', { message: "Something went wrong", error: err })
+            }
         } else {
-            res.send(document)
+            res.status(200)
+            res.send({ message: "User Deleted" })
         }
     })
 }
@@ -75,11 +75,16 @@ exports.updateUser = (req, res) => {
         })
     }
     
-    User.updateByUserName(req.params.userName, req.body, (err, document) => {
+    User.updateByUserName(req.params.userName, req.body, (err, success) => {
         if (err) {
-            handleNoUserError(err, res)
+            if (err.status === 204) {
+                res.render('error', { message: "No Such User", error: { status: err.status } })
+            } else {
+                res.render('error', { message: "Something went wrong", error: err })
+            }
         } else {
-            res.send(document)
+            res.status(200)
+            res.send({ message: "User Updated" })
         }
     })
 }

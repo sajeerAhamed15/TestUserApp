@@ -1,6 +1,6 @@
 const db = require('../../config/db');
 
-const User = (user) => {
+const User = function(user) {
     this.userName = user.userName;
     this.givenName = user.givenName;
     this.surName = user.surName;
@@ -60,15 +60,15 @@ User.deleteByUserName = (userName, result) => {
 }
 
 User.updateByUserName = (userName, body, result) => {
-    db.update({ "userName": userName }, { $set: body }, (err, user) => {
+    db.update({ "userName": userName }, { $set: body }, (err, success) => {
         if (err) {
             result(err, null);
-        } else if (!user.length) {
+        } else if (success == 0) {
             const err = new Error('No Such User');
             err.status = 204;
             result(err, null);
         } else {
-            result(null, user);
+            result(null, success);
         }
     });
 }
