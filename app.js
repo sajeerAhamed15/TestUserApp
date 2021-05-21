@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-const actuator = require('express-actuator');
+var actuator = require('express-actuator');
 
 var defaultRoute = require('./src/index');
 var users = require('./src/routes/user.routes');
@@ -38,14 +38,15 @@ app.use('/', defaultRoute);
 
 app.use('/user', users);
 
+// health, metrics check
+app.use('/management', actuator());
+
+// handle 404
 app.use(function(req, res, next) {
   var err = new Error('Path Does Not Exist! Please Check the URL.');
   err.status = 404;
   next(err);
 });
-
-// health, metrics check
-app.use(actuator());
 
 // error handlers
 // development error handler
