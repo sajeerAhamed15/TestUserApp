@@ -9,7 +9,7 @@ const User = (user) => {
 
 User.getAll = (result) => {
     db.find({}, (err, users) => {
-        if (err !== undefined) {
+        if (err) {
             result(err, null);
         } else if (!users.length) {
             const err = new Error('No Users');
@@ -23,7 +23,7 @@ User.getAll = (result) => {
 
 User.createNew = (new_user, result) => {
     db.insert(new_user, (err, user) => {
-        if (err !== undefined) {
+        if (err) {
             result(err, null);
         } else {
             result(null, user);
@@ -33,7 +33,7 @@ User.createNew = (new_user, result) => {
 
 User.getByUserName = (userName, result) => {
     db.find({ "userName": userName }, (err, user) => {
-        if (err !== undefined) {
+        if (err) {
             result(err, null);
         } else if (!user.length) {
             const err = new Error('No Such User');
@@ -47,7 +47,7 @@ User.getByUserName = (userName, result) => {
 
 User.deleteByUserName = (userName, result) => {
     db.remove({ "userName": userName }, (err, success) => {
-        if (err !== undefined) {
+        if (err) {
             result(err, null);
         } else if (success == 0) {
             const err = new Error('No Such User');
@@ -61,7 +61,7 @@ User.deleteByUserName = (userName, result) => {
 
 User.updateByUserName = (userName, body, result) => {
     db.update({ "userName": userName }, { $set: body }, (err, user) => {
-        if (err !== undefined) {
+        if (err) {
             result(err, null);
         } else if (!user.length) {
             const err = new Error('No Such User');
